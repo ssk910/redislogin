@@ -1,0 +1,67 @@
+main {
+    padding: 40px;
+}
+
+section {
+    margin-bottom: 80px;
+}
+
+h1 {
+    padding: 0 40px 0;
+    line-height: 30px;
+}
+
+h2 {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 20px;
+}
+
+.cm-alert {
+    width: 280px;
+}
+
+.cm-input,
+.cm-textarea {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.cm-file-input,
+.cm-select-input {
+    width: 250px;
+}
+
+.file-input-label {
+    padding: 15px;
+    text-align: center;
+    color: #777;
+}
+
+.cm-select-input {
+    margin-top: 15px;
+}
+
+table.primary {
+    margin-bottom: 15px;
+}
+
+span {
+    margin-bottom: 15px;
+}
+
+@media screen and (max-width: 768px) {
+    .cm-alert {
+        width: 100%;
+    }
+    .cm-badge {
+        display: inline-block;
+    }
+    .cm-badge,
+    .buttons .cm-btn {
+        margin-bottom: 15px;
+    }
+    .grid-boxes .grid-box {
+        margin-bottom: 15px;
+    }
+}
