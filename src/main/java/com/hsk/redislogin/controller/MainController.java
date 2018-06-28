@@ -34,6 +34,14 @@ public class MainController {
 
         return mav;
     }
+
+    @RequestMapping(value = "main", params = "edit", method = RequestMethod.GET)
+    public ModelAndView editUser(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("redirect:edit");
+        request.getSession().setAttribute("user", user);
+
+        return mav;
+    }
 }
 
 

@@ -87,14 +87,14 @@ public class RedisConfig {
 
     public String getHash(String key, String field) {
         Jedis jedis = pool.getResource();
-        String value = null;
+        String value = "";
 
         try {
             value = jedis.hget(key,field);
         } catch (JedisException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
-
+            value = "";
         } finally {
             jedis.close();
             return value;

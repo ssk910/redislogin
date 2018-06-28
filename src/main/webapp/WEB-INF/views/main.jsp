@@ -49,9 +49,9 @@
                 </div>
             </div>
             <br/>
-            <button id="btn_edit" name="btn_edit" type="submit" class="cm-btn primary line" value="btn_edit">Edit</button>
-            <button id="btn_logout" name="btn_logout" type="submit" class="cm-btn primary" value="btn_logout">Log Out</button>
-            <button id="btn_signout" name="btn_signout" type="submit" class="cm-btn error" value="btn_signout">Sign Out</button>
+            <button id="btn_edit" name="edit" type="submit" class="cm-btn primary line" value="btn_edit">Edit</button>
+            <button id="btn_logout" name="logout" type="submit" class="cm-btn primary" value="btn_logout">Log Out</button>
+            <button id="btn_signout" name="signout" type="submit" class="cm-btn error" value="btn_signout">Sign Out</button>
         </section>
     </main>
 </div>

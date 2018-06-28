@@ -49,6 +49,8 @@ public class UserDaoImpl implements UserDao {
     public User validateUser(Login login) {
         boolean isValidId;
         boolean isValidPw;
+        String givenId;
+        String givenPw;
         User user = null;
 
         redisConfig.openConnection();
@@ -56,8 +58,14 @@ public class UserDaoImpl implements UserDao {
         logger.info("given Id: " + login.getId());
         logger.info("given Pw: " + login.getPw());
 
-        isValidId = redisConfig.getHash(login.getId(), "id").compareTo(login.getId()) == 0 ? true : false;
-        isValidPw = redisConfig.getHash(login.getId(), "pw").compareTo(login.getPw()) == 0 ? true : false;
+        givenId = redisConfig.getHash(login.getId(), "id");
+        givenPw = redisConfig.getHash(login.getId(), "pw");
+
+        givenId = givenId == null ? "" : givenId;
+        givenPw = givenPw == null ? "" : givenPw;
+
+        isValidId = givenId.compareTo(login.getId()) == 0 ? true : false;
+        isValidPw = givenPw.compareTo(login.getPw()) == 0 ? true : false;
 
         if (!isValidId) {
             logger.log(Level.WARNING, "LogIn Failed : invalid ID");

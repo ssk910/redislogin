@@ -23,7 +23,7 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "login"}, method = RequestMethod.GET)
     public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("login");
         return mav;
@@ -34,7 +34,7 @@ public class LoginController {
 //                                     @ModelAttribute("login") Login login) {
 
 @RequestMapping(value = "/loginProcess", params = "login", method = RequestMethod.POST)
-public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, Login login, SessionStatus status) {
+public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, Login login) {
         ModelAndView mav = null;
         User user = userService.validateUser(login);
 
@@ -44,8 +44,9 @@ public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse
             mav.addObject("user", user);
             request.getSession().setAttribute("user", user);
         } else {
-            mav = new ModelAndView("redirect:/login");
-            mav.addObject("message", "ID 또는 Password가 일치하지 않습니다.");
+//            mav = new ModelAndView("redirect:login");
+            mav = new ModelAndView("login");
+            mav.addObject("msg", "ID 또는 Password가 일치하지 않습니다.");
             // 추후에 id, password 중 뭐가 틀렸는지 처리
         }
 

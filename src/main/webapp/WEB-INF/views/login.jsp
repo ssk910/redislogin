@@ -31,7 +31,7 @@
                 <button id="btn_login" name="login" type="submit" class="cm-btn primary" value="btn_login">Log in</button>
                 <button id="btn_join" name="join" class="cm-btn primary line" value="btn_join">Join</button><br/>
             </form>
-            <span style="color:red;">${message}</span>
+            <span style="color:red;">${msg}</span>
         </section>
     </main>
 </div>
