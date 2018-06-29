@@ -38,6 +38,7 @@
                 <span id="error_pw" name="error_pw" class="cm-alert error" style="margin-top: 50px;"></span>
                 <span id="error_name" name="error_name" class="cm-alert error" style="margin-top: 50px;"></span>
                 <span id="error_email" name="error_email" class="cm-alert error" style="margin-top: 50px;"></span>
+                <span id="error_msg" name="error_msg" class="cm-alert error" style="margin-top: 50px;"></span>
             </form>
         </section>
     </main>
@@ -68,10 +69,13 @@ $(document).ready(function() {
             toggleDisableSubmit(checkValidUser());
         });
     });
+
+    // show error message if message exists.
+    showErrorSpan("${msg}");
 });
 
 function showSpan(objSpanMsg) {
-    $("span").each(function() {
+    $("span").each(function () {
         var text = objSpanMsg === undefined ? undefined : objSpanMsg[this.id];
 
         if (text === undefined) {
@@ -79,9 +83,19 @@ function showSpan(objSpanMsg) {
             this.innerText = "";
         } else {
             $(this).css("display", "inline-block");
-            this.innerText = objSpanMsg[this.id];
+            this.innerText = text;
         }
     });
+}
+
+function showErrorSpan(msg) {
+    if (msg.length == 0) {
+        $("#error_msg").css("display", "none");
+        $("#error_msg").text("");
+    } else {
+        $("#error_msg").css("display", "inline-block");
+        $("#error_msg").text(msg);
+    }
 }
 
 function checkFieldEmpty() {
@@ -99,7 +113,7 @@ function checkValidUser() {
     // check if input type is valid
     if (!checkValidId()) {
         errorMessage = "ID는 소문자 알파벳과 숫자의 조합이며, 첫 글자는 알파벳으로 시작해야 합니다\n"
-                        + "8~20글자만 가능합니다.";
+                        + "5~20글자만 가능합니다.";
         objSpanMsg["error_id"] = errorMessage;
         showSpan(objSpanMsg);
 

@@ -26,6 +26,7 @@ public class RegistrationController {
     public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("register");
         mav.addObject("user", new User());
+        mav.addObject("msg", "");
         return mav;
     }
 
@@ -42,6 +43,7 @@ public class RegistrationController {
         } else {
             // false
             mav = new ModelAndView("register");
+            mav.addObject("msg", "이미 존재하는 ID입니다.");
             logger.info("register failed");
         }
 

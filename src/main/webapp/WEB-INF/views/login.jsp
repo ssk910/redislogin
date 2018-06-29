@@ -25,7 +25,7 @@
             <form id="frm_login" name="frm_login" action="loginProcess" method="post">
                 <input id="txt_id" name="id" type="text" class="cm-input" placeholder="ID"/><br/>
                 <input id="txt_pw" name="pw" type="password" class="cm-input" placeholder="Password"/><br/>
-                <button id="btn_login" name="login" type="submit" class="cm-btn primary" value="btn_login" disabled="true">Log in</button>
+                <button id="btn_login" name="login" type="submit" class="cm-btn primary" value="btn_login" disabled="true">Log In</button>
                 <button id="btn_join" name="join" class="cm-btn primary line" value="btn_join">Join</button><br/>
             </form>
             <span id="error_msg" name="error_msg" class="cm-alert error" style="margin-top:50px;"></span>
