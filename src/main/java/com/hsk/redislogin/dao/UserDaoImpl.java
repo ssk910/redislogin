@@ -27,6 +27,7 @@ public class UserDaoImpl implements UserDao {
         if (redisConfig.hlen(user.getId()) > 0) {
             // 나중에 수정
             logger.log(Level.WARNING, "already exists.");
+            redisConfig.closeConnection();
             //
             return false;
         }
@@ -75,11 +76,6 @@ public class UserDaoImpl implements UserDao {
             logger.log(Level.WARNING, "LogIn Failed : invalid Id and Password");
         } else {
             user = new User(
-//                redisConfig.getHash(login.getId(), "id"),
-//                redisConfig.getHash(login.getId(), "pw"),
-//                redisConfig.getHash(login.getId(), "name"),
-//                redisConfig.getHash(login.getId(), "meail")
-
                 redisConfig.getHash(login.getId(), "id"),
                 redisConfig.getHash(login.getId(), "pw"),
                 redisConfig.getHash(login.getId(), "name"),
@@ -96,5 +92,47 @@ public class UserDaoImpl implements UserDao {
 
         redisConfig.closeConnection();
         return user;
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        boolean isUpdated = false;
+        redisConfig.openConnection();
+
+        if (redisConfig.keyExists(user.getId())) {
+            redisConfig.addHash(user.getId(), "pw", user.getPw());
+            redisConfig.addHash(user.getId(), "name", user.getName());
+            redisConfig.addHash(user.getId(), "email", user.getEmail());
+
+            // log
+            logger.log(Level.INFO, "user update complete.");
+            logger.log(Level.INFO, "[id] " + user.getId());
+            logger.log(Level.INFO, "[pw] " + user.getPw());
+            logger.log(Level.INFO, "[name] " + user.getName());
+            logger.log(Level.INFO, "[email] " + user.getEmail());
+
+            isUpdated = true;
+        }
+
+        redisConfig.closeConnection();
+        return isUpdated;
+    }
+
+    @Override
+    public boolean deleteUser(User user) {
+        redisConfig.openConnection();
+
+        if (redisConfig.del(user.getId()) > 0) {
+            logger.log(Level.INFO, "delete complete.");
+            logger.log(Level.INFO, "[id] " + user.getId());
+            redisConfig.closeConnection();
+
+            return true;
+        }
+
+        logger.log(Level.INFO, "delete failed. can not find a key.");
+        redisConfig.closeConnection();
+
+        return false;
     }
 }

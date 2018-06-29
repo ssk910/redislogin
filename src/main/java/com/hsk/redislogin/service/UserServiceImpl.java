@@ -19,4 +19,14 @@ public class UserServiceImpl implements UserService {
     public User validateUser(Login login) {
         return userDao.validateUser(login);
     }
+
+    @Override
+    public boolean updateUser(User user) {
+        return userDao.updateUser(user);
+    }
+
+    @Override
+    public boolean deleteUser(User user) {
+        return userDao.deleteUser(user);
+    }
 }

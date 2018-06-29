@@ -172,4 +172,47 @@ public class RedisConfig {
             return count;
         }
     }
+
+    public boolean hashExists(String key, String field) {
+        Jedis jedis = pool.getResource();
+        boolean exists = false;
+
+        try {
+            exists = jedis.hexists(key, field);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            jedis.close();
+            return exists;
+        }
+    }
+
+    public boolean keyExists(String key) {
+        Jedis jedis = pool.getResource();
+        boolean exists = false;
+
+        try {
+            exists = jedis.exists(key);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            jedis.close();
+            return exists;
+        }
+    }
+
+    public Long del(String key) {
+        Jedis jedis = pool.getResource();
+        Long count = 0L;
+
+        try {
+            // return: deleted keys count
+            count = jedis.del(key);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            jedis.close();
+            return count;
+        }
+    }
 }

@@ -15,12 +15,12 @@ import java.util.logging.Logger;
 @Controller
 public class EditController {
     @Autowired
-    public UserService userService;
+    private UserService userService;
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
     private User user;
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "edit", method = RequestMethod.GET)
     public ModelAndView showEdit(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("edit");
         user = (User) request.getSession().getAttribute("user");
@@ -38,17 +38,20 @@ public class EditController {
     public ModelAndView editUser(HttpServletRequest request, HttpServletResponse response, User user) {
         ModelAndView mav;
 
-        if (userService.register(user)) {
-            // true
+        if (userService.updateUser(user)) {
+            // return updated info
             mav = new ModelAndView("redirect:main");
             mav.addObject("user", user);
+            mav.addObject("isUpdated", true);
             request.getSession().setAttribute("user", user);
-
-            logger.info("register complete");
+            logger.info("user update complete");
         } else {
-            // false
-            mav = new ModelAndView("register");
-            logger.info("register failed");
+            // return original info
+            mav = new ModelAndView("edit");
+            mav.addObject("user", this.user);
+            mav.addObject("isUpdated", false);
+            request.getSession().setAttribute("user", this.user);
+            logger.info("user update failed");
         }
 
         return mav;
@@ -56,9 +59,11 @@ public class EditController {
 
     @RequestMapping(value = "/editProcess", params = "cancel", method = RequestMethod.POST)
     public ModelAndView cancel(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = null;
+        ModelAndView mav = new ModelAndView("redirect:main");
 
-        mav = new ModelAndView("redirect:login");
+        mav.addObject("user", this.user);
+        request.getSession().setAttribute("user", this.user);
+
         return mav;
     }
 }

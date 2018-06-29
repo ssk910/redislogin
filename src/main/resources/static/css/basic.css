@@ -17,9 +17,9 @@ h2 {
     margin-bottom: 20px;
 }
 
-.cm-alert {
-    width: 280px;
-}
+/*.cm-alert {*/
+    /*width: 280px;*/
+/*}*/
 
 .cm-input,
 .cm-textarea {
@@ -43,10 +43,6 @@ h2 {
 }
 
 table.primary {
-    margin-bottom: 15px;
-}
-
-span {
     margin-bottom: 15px;
 }
 

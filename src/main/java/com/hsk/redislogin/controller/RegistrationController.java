@@ -38,7 +38,6 @@ public class RegistrationController {
             mav = new ModelAndView("redirect:main");
             mav.addObject("user", user);
             request.getSession().setAttribute("user", user);
-
             logger.info("register complete");
         } else {
             // false
@@ -53,7 +52,7 @@ public class RegistrationController {
     public ModelAndView cancel(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = null;
 
-        mav = new ModelAndView("redirect:login");
+        mav = new ModelAndView("redirect:/");
         return mav;
     }
 }

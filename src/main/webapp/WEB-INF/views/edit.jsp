@@ -16,27 +16,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="css/css-mint.min.css">
     <link rel="stylesheet" href="css/basic.css">
+    <style type="text/css">
+        table {
+            width: 50%;
+            background-color: #ffffff;
+            border: 0;
+            margin-bottom: 30px;
+        }
+
+        table td {
+            background-color: #ffffff;
+        }
+
+        input.cm-input {
+            margin-bottom: 0px;
+        }
+
+        span[id] {
+             margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-<div id="div_login" align="center">
+<div id="div_edit" align="center">
     <main>
         <section>
-            <h2>회원 가입</h2>
+            <h2>정보 수정</h2>
             <form id="frm_edit" name="frm_edit" action="editProcess" method="post">
-                <input id="txt_id" name="id" type="text" class="cm-input" placeholder="ID" value="${user.id}"/><br/>
-                <span id="error_id" name="error_id" class="cm-badge warning"></span><br/>
-
-                <input id="txt_pw" name="pw" type="password" class="cm-input" placeholder="Password" value="${user.pw}"/><br/>
-                <span id="error_pw" name="error_pw" class="cm-badge warning"></span><br/>
-
-                <input id="txt_name" name="name" type="text" class="cm-input" placeholder="Name" value="${user.name}"/><br/>
-                <span id="error_name" name="error_name" class="cm-badge warning"></span><br/>
-
-                <input id="txt_email" name="email" type="text" class="cm-input" placeholder="E-mail" value="${user.email}"/><br/>
-                <span id="error_email" name="error_email" class="cm-badge warning"></span><br/>
-
+                <!-- input fields -->
+                <table>
+                    <tr>
+                        <td><span class="cm-text-bold">ID</span></td>
+                        <td>
+                            <input type="text" class="cm-input" placeholder="ID" value="${user.id}" disabled="true"/>
+                            <input id="txt_id" name="id" type="hidden" value="${user.id}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="cm-text-bold">Password</span></td>
+                        <td><input id="txt_pw" name="pw" type="password" class="cm-input" placeholder="Password" value="${user.pw}"/></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cm-text-bold">Name</span></td>
+                        <td><input id="txt_name" name="name" type="text" class="cm-input" placeholder="Name" value="${user.name}"/></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cm-text-bold">E-Mail</span></td>
+                        <td><input id="txt_email" name="email" type="text" class="cm-input" placeholder="E-mail" value="${user.email}"/></td>
+                    </tr>
+                </table>
+                <!-- buttons -->
                 <button id="btn_submit" name="submit" type="submit" class="cm-btn success" disabled="true" value="btn_submit">Submit</button>
                 <button id="btn_cancel" name="cancel" class="cm-btn error" value="btn_cancel">Cancel</button><br/>
+                <!-- error messages -->
+                <span id="error_pw" name="error_pw" class="cm-alert error"></span>
+                <span id="error_name" name="error_name" class="cm-alert error"></span>
+                <span id="error_email" name="error_email" class="cm-alert error"></span>
             </form>
         </section>
     </main>
@@ -67,17 +102,23 @@ $(document).ready(function() {
             toggleDisableSubmit(checkValidUser());
         });
     });
+
+    <c:if test="${!empty isUpdated}">
+        <c:if test="${!isUpdated}">
+            alert("수정을 실패했습니다.");
+        </c:if>
+    </c:if>
 });
 
 function showSpan(objSpanMsg) {
-    $("span").each(function() {
+    $("span[id]").each(function() {
         var text = objSpanMsg === undefined ? undefined : objSpanMsg[this.id];
 
         if (text === undefined) {
             $(this).css("display", "none");
             this.innerText = "";
         } else {
-            $(this).css("display", "inline");
+            $(this).css("display", "inline-block");
             this.innerText = objSpanMsg[this.id];
         }
     });
@@ -86,8 +127,8 @@ function showSpan(objSpanMsg) {
 function checkFieldEmpty() {
     var frm = document.frm_edit;
     return frm.id.value.length == 0 || frm.pw.value.length == 0 ||
-    frm.name.value.length == 0 || frm.email.value.length == 0
-        ? true : false;
+            frm.name.value.length == 0 || frm.email.value.length == 0
+            ? true : false;
 }
 
 function checkValidUser() {
@@ -95,18 +136,8 @@ function checkValidUser() {
     var errorMessage = "";
     var objSpanMsg = {};
 
-    // check if input type is valid
-    if (!checkValidId()) {
-        errorMessage = "ID는 소문자 알파벳과 숫자의 조합이며, 첫 글자는 알파벳으로 시작해야 합니다\n"
-            + "8~20글자만 가능합니다.";
-        objSpanMsg["error_id"] = errorMessage;
-        showSpan(objSpanMsg);
-
-        return validUser = false;
-    }
     if (!checkValidPw()) {
-        errorMessage = "비밀번호는 8~20글자로 가능하고, 숫자, 알파벳(대문자, 소문자 모두 가능),\n"
-            + "허용된 특수문자(!@#$%^&*)의 조합입니다.";
+        errorMessage = "비밀번호는 8~20글자로 가능하고, 숫자, 알파벳(대문자, 소문자 모두 가능) 허용된 특수문자(!@#$%^&*)의 조합입니다.";
         objSpanMsg["error_pw"] = errorMessage;
         showSpan(objSpanMsg);
 
@@ -135,25 +166,6 @@ function checkValidUser() {
 function toggleDisableSubmit(validUser) {   // validUser : boolean
     var frm = document.frm_edit;
     frm.submit.disabled = !validUser;
-    // $("#btn_submit").attr("disabled", validUser);
-}
-
-/**
- * 1. id의 길이는 5 이상 20 이하.
- * 2. id는 소문자 알파벳과 숫자의 조합.
- * 3. 첫 글자는 알파벳.
- * @returns {boolean}
- */
-function checkValidId() {
-    var validId = true;
-    var frm = document.frm_edit;
-
-    /** @see <a href="https://stackoverflow.com/a/24304748/4284814">https://stackoverflow.com/a/24304748/4284814</a> */
-    if (!frm.id.value.match(/^([a-z])[a-z0-9]{4,20}$/g)) {
-        validId = false;
-    }
-
-    return validId;
 }
 
 /**

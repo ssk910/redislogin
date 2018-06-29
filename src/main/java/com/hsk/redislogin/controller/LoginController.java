@@ -18,14 +18,15 @@ import java.util.logging.Logger;
 
 @Controller
 public class LoginController {
-    Logger logger = Logger.getLogger(this.getClass().getName());
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = {"/", "login"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/*", method = RequestMethod.GET) // "/*"로 메인페이지를 설정할 수 있음
     public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("login");
+        mav.addObject("msg", "");
         return mav;
     }
 

@@ -16,6 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="css/css-mint.min.css">
     <link rel="stylesheet" href="css/basic.css">
+    <script type="text/css">
+    </script>
 </head>
 <body>
 <div id="div_login" align="center">
@@ -23,20 +25,19 @@
         <section>
             <h2>회원 가입</h2>
             <form id="frm_register" name="frm_register" action="registerProcess" method="post">
+                <!-- input fields -->
                 <input id="txt_id" name="id" type="text" class="cm-input" placeholder="ID"/><br/>
-                <span id="error_id" name="error_id" class="cm-badge warning"></span><br/>
-
                 <input id="txt_pw" name="pw" type="password" class="cm-input" placeholder="Password"/><br/>
-                <span id="error_pw" name="error_pw" class="cm-badge warning"></span><br/>
-
                 <input id="txt_name" name="name" type="text" class="cm-input" placeholder="Name"/><br/>
-                <span id="error_name" name="error_name" class="cm-badge warning"></span><br/>
-
                 <input id="txt_email" name="email" type="text" class="cm-input" placeholder="E-mail"/><br/>
-                <span id="error_email" name="error_email" class="cm-badge warning"></span><br/>
-
+                <!-- buttons -->
                 <button id="btn_submit" name="submit" type="submit" class="cm-btn success" disabled="true" value="btn_submit">Submit</button>
                 <button id="btn_cancel" name="cancel" class="cm-btn error" value="btn_cancel">Cancel</button><br/>
+                <!-- error messages -->
+                <span id="error_id" name="error_id" class="cm-alert error" style="margin-top: 50px;"></span>
+                <span id="error_pw" name="error_pw" class="cm-alert error" style="margin-top: 50px;"></span>
+                <span id="error_name" name="error_name" class="cm-alert error" style="margin-top: 50px;"></span>
+                <span id="error_email" name="error_email" class="cm-alert error" style="margin-top: 50px;"></span>
             </form>
         </section>
     </main>
@@ -77,7 +78,7 @@ function showSpan(objSpanMsg) {
             $(this).css("display", "none");
             this.innerText = "";
         } else {
-            $(this).css("display", "inline");
+            $(this).css("display", "inline-block");
             this.innerText = objSpanMsg[this.id];
         }
     });

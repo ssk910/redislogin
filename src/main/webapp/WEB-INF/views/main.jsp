@@ -49,11 +49,34 @@
                 </div>
             </div>
             <br/>
-            <button id="btn_edit" name="edit" type="submit" class="cm-btn primary line" value="btn_edit">Edit</button>
-            <button id="btn_logout" name="logout" type="submit" class="cm-btn primary" value="btn_logout">Log Out</button>
-            <button id="btn_signout" name="signout" type="submit" class="cm-btn error" value="btn_signout">Sign Out</button>
+            <form id="frm_main" name="frm_main" action="mainProcess" method="post">
+                <button id="btn_edit" name="edit" type="submit" class="cm-btn primary line" value="btn_edit">Edit</button>
+                <button id="btn_logout" name="logout" type="submit" class="cm-btn primary" value="btn_logout">Log Out</button>
+                <button id="btn_delete" name="delete" type="submit" class="cm-btn error" onclick="return checkSubmit(this);" value="btn_delete">Delete My Account</button>
+            </form>
         </section>
     </main>
 </div>
 </body>
+<script type="text/javascript">
+$(document).ready(function() {
+
+});
+
+function checkSubmit(elemButton) {
+    var confirmed = false;
+
+    switch (elemButton.name) {
+        case "edit":
+            break;
+        case "logout":
+            break;
+        case "delete":
+            confirmed = confirm("계정을 삭제하시겠습니까?");
+            break;
+    }
+
+    return confirmed;
+}
+</script>
 </html>
