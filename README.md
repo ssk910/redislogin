@@ -60,6 +60,7 @@
     <td>[user e-mail]</td>
   </tr>
 </table>
+<br/>
 <!-- Features -->
 <h2>Features</h2>
 <ul>
@@ -70,9 +71,10 @@
   <li>회원 정보 수정</li>
   <li>회원가입 데이터 유효성 검사</li>
 </ul>
-
+<br/>
 <!-- Notes -->
 <h2>Notes</h2>
 <ul>
   <li>vagrant 로컬 포트 포워딩 설정 : https://sejoung.github.io/2018/06/vagrant_redis</li>
 </ul>
+<br/>
