@@ -22,6 +22,10 @@
     <td>Jedis (for Redis)</td>
   </tr>
   <tr>
+    <th>Template</th>
+    <td>Mustache (on plan)</td>
+  </tr>
+  <tr>
     <th>CSS</th>
     <td><a href="https://github.com/ArunMichaelDsouza/CSS-Mint">CSS-Mint</a></td>
   </tr>
