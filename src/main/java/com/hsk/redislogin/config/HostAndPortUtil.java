@@ -10,6 +10,9 @@ import java.util.List;
  * @see <a href="https://github.com/xetorthio/jedis/blob/master/src/test/java/redis/clients/jedis/tests/HostAndPortUtil.java">참고 소스</a>
  */
 public final class HostAndPortUtil {
+    private static final String host = "172.20.0.108";
+    private static final int port = 9100;
+
     private static List<HostAndPort> redisHostAndPortList = new ArrayList<HostAndPort>();
 
     private HostAndPortUtil() {
@@ -17,7 +20,11 @@ public final class HostAndPortUtil {
     }
 
     static {
-        redisHostAndPortList.add(new HostAndPort(Protocol.DEFAULT_HOST, Protocol.DEFAULT_PORT));
+        /** default host(127.0.0.1) and port(6379) */
+//        redisHostAndPortList.add(new HostAndPort(Protocol.DEFAULT_HOST, Protocol.DEFAULT_PORT));
+
+        /** specified host and port */
+        redisHostAndPortList.add(new HostAndPort(host, port));
 
         String envRedisHosts = System.getProperty("redis-hosts");
 
