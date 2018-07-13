@@ -1,14 +1,18 @@
 package com.hsk.redislogin.model;
 
+/**
+ * 유저의 정보를 담고 있는 클래스.
+ *
+ * @version     1.0 29 Jun 2018
+ * @author      Seokgyu Hwang
+ */
 public class User {
-    private String id,          // user ID
-                    pw,         // user Password
-                    name,       // user Name
-                    email;      // user e-mail
+    private String id;       // user ID
+    private String pw;       // user Password
+    private String name;     // user Name
+    private String email;    // user e-Mail
 
-    public  User() {
-
-    }
+    public  User() {}
 
     public User(String id, String pw, String name, String email) {
         this.id = id;

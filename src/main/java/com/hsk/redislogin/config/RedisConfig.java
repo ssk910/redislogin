@@ -11,30 +11,48 @@ import java.util.Map;
 import java.util.Set;
 
 public class RedisConfig {
-
+    /* time out 시간 */
     private static int TIMEOUT = 2000;
-    private static HostAndPort hnp = HostAndPortUtil.getRedisServers().get(0);
+
+    /* 인증시 비밀번호 */
     private String authPassword = null;
-    //    private Jedis jedis = null;
+
+    /* 연결된 레디스  */
+    private static HostAndPort hnp = HostAndPortUtil.getRedisServers().get(0);
     private static JedisPool pool = null;
 
     public RedisConfig() {
         openConnection();
     }
 
+    /**
+     * @param authPassword : 인증시 비밀번호
+     */
     public RedisConfig(String authPassword) {
         this.authPassword = authPassword;
         openConnection();
     }
 
+    /**
+     * Redis에 연결
+     */
     public void openConnection() {
-        pool = new JedisPool(new JedisPoolConfig(), hnp.getHost(), hnp.getPort(), TIMEOUT, authPassword);
+        pool = new JedisPool(new JedisPoolConfig(), hnp.getHost(), hnp.getPort(),
+                TIMEOUT, authPassword);
     }
 
+    /**
+     * 연결 닫기
+     */
     public void closeConnection() {
         pool.destroy();
     }
 
+    /**
+     * String-String 타입의 키 추가
+     * @param key   : key
+     * @param value : value
+     */
     public void addString(String key, String value) {
         Jedis jedis = pool.getResource();
 
@@ -47,6 +65,11 @@ public class RedisConfig {
         }
     }
 
+    /**
+     * 입력받은 key로 String-String 타입의 value를 가져온다
+     * @param key
+     * @return String 타입의 value
+     */
     public String getString(String key) {
         Jedis jedis = pool.getResource();
         String value = null;

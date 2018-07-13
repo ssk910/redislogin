@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * 로그인 후의 메인 화면을 담당하는 컨트롤러.
+ *
+ * @version     1.0 29 Jun 2018
+ * @author      Seokgyu Hwang
+ */
 @Controller
 public class MainController {
     @Autowired
